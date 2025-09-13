@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "X-Ray demo: API Gateway (REST) -> Lambda (Node.js 20) -> external HTTP -> DynamoDB"
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+    MemorySize: 256
+    Tracing: Active
+
+Parameters:
+  TargetUrl:
+    Type: String
+    Default: "https://jsonplaceholder.typicode.com/todos/1"
+    Description: "Free public API to call (try https://httpbin.org/delay/2 for slow tail)"
+
+Resources:
+  DemoTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  DemoApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+      TracingEnabled: true
+      Cors:
+        AllowOrigin: "'*'"
+        AllowHeaders: "'*'"
+        AllowMethods: "'GET,OPTIONS'"
+        MaxAge: "'3600'"
+
+  DemoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: index.handler
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: DemoTable
+          TARGET_URL:
+            Ref: TargetUrl
+      Policies:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              Ref: DemoTable
+      Events:
+        Hit:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: DemoApi
+            Path: /hit
+            Method: GET
+
+Outputs:
+  ApiUrl:
+    Description: "Invoke URL"
+    Value:
+      Fn::Sub: "https://${DemoApi}.execute-api.${AWS::Region}.amazonaws.com/v1/hit"
+  TableName:
+    Description: "DynamoDB table name"
+    Value:
+      Ref: DemoTable
+  TargetUrlOut:
+    Description: "External API URL used by the function"
+    Value:
+      Ref: TargetUrl
