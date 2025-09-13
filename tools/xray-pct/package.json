@@ -1,0 +1,8 @@
+{
+  "name": "xray-pct",
+  "version": "1.0.0",
+  "dependencies": {
+    "@aws-sdk/client-xray": "^3.669.0",
+    "yargs": "^17.7.2"
+  }
+}
