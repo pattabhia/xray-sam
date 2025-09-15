@@ -1,0 +1,203 @@
+{
+  "widgets": [
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "region": "us-east-1",
+        "title": "X-Ray ResponseTime (Lambda) p95/p99",
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p95" }
+          ],
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p99" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "region": "us-east-1",
+        "title": "Lambda Duration p95/p99",
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/Lambda",
+            "Duration",
+            "FunctionName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            { "stat": "p95" }
+          ],
+          [
+            "AWS/Lambda",
+            "Duration",
+            "FunctionName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            { "stat": "p99" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "region": "us-east-1",
+        "title": "API Gateway Latency (GET /hit @ v1) p95/p99",
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/ApiGateway",
+            "Latency",
+            "ApiName",
+            "xray-sam",
+            "Stage",
+            "v1",
+            "Method",
+            "GET",
+            "Resource",
+            "/hit",
+            { "stat": "p95" }
+          ],
+          [
+            "AWS/ApiGateway",
+            "Latency",
+            "ApiName",
+            "xray-sam",
+            "Stage",
+            "v1",
+            "Method",
+            "GET",
+            "Resource",
+            "/hit",
+            { "stat": "p99" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "region": "us-east-1",
+        "title": "DynamoDB PutItem SuccessfulRequestLatency p95/p99",
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/DynamoDB",
+            "SuccessfulRequestLatency",
+            "TableName",
+            "xray-sam-DemoTable-14AF3IWNWQZ5V",
+            "Operation",
+            "PutItem",
+            { "stat": "p95" }
+          ],
+          [
+            "AWS/DynamoDB",
+            "SuccessfulRequestLatency",
+            "TableName",
+            "xray-sam-DemoTable-14AF3IWNWQZ5V",
+            "Operation",
+            "PutItem",
+            { "stat": "p99" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 12,
+      "width": 24,
+      "height": 6,
+      "properties": {
+        "region": "us-east-1",
+        "title": "X-Ray ResponseTime (Lambda) p50/p90/p95/p99",
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p50" }
+          ],
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p90" }
+          ],
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p95" }
+          ],
+          [
+            "AWS/XRay",
+            "ResponseTime",
+            "GroupName",
+            "Default",
+            "ServiceName",
+            "xray-sam-DemoFunction-T2NNpn5tGCqA",
+            "ServiceType",
+            "AWS::Lambda::Function",
+            { "stat": "p99" }
+          ]
+        ]
+      }
+    }
+  ]
+}
